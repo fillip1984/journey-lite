@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { PiDotsThreeCircleVertical } from "react-icons/pi";
 import { useState } from "react";
+import { staggerContainer } from "~/styles/framerVariants";
+import AreaCard from "./_components/AreaCard";
 
-type Area = {
+export type Area = {
   name: string;
 };
 
@@ -15,6 +16,12 @@ export default function Home() {
     { name: "Test2" },
     { name: "Test3" },
     { name: "Test4" },
+    { name: "Test5" },
+    { name: "Test6" },
+    { name: "Test7" },
+    { name: "Test8" },
+    { name: "Test9" },
+    { name: "Test10" },
   ]);
 
   const handleAddArea = () => {
@@ -23,23 +30,8 @@ export default function Home() {
     setNewArea("");
   };
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, x: -100 },
-    show: { opacity: 1, x: 0 },
-  };
-
   return (
-    <main className="bg-background flex min-h-screen flex-col overflow-hidden p-4 text-white">
+    <main className="flex min-h-screen flex-col overflow-hidden bg-background p-4 text-white">
       <div className="flex w-full justify-center">
         <h2>Journey lite</h2>
       </div>
@@ -53,28 +45,17 @@ export default function Home() {
         <button
           type="button"
           onClick={handleAddArea}
-          className="bg-success rounded-r px-4 py-2 text-2xl"
-        >
+          className="rounded-r bg-success px-4 py-2 text-2xl">
           Add Area
         </button>
       </div>
       <motion.div
-        variants={container}
+        variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="flex flex-1 gap-2 overflow-auto p-4"
-      >
+        className="flex flex-1 snap-x snap-mandatory gap-2 overflow-auto p-4">
         {areas.map((area) => (
-          <motion.div
-            key={area.name}
-            variants={item}
-            className="min-h-full min-w-[300px] rounded-xl border border-white"
-          >
-            <div className="flex items-center justify-between p-1 text-2xl">
-              {area.name}
-              <PiDotsThreeCircleVertical className="h-10 w-10" />
-            </div>
-          </motion.div>
+          <AreaCard key={area.name} area={area} />
         ))}
       </motion.div>
     </main>
