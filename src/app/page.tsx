@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 import { staggerContainer } from "~/styles/framerVariants";
 import AreaCard from "./_components/AreaCard";
 import { Button } from "./_components/ui/button";

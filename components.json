@@ -12,6 +12,6 @@
   },
   "aliases": {
     "components": "~/app/_components",
-    "utils": "~/styles"
+    "utils": "~/styles/utils"
   }
 }
