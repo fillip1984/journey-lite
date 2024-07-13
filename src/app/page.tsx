@@ -1,9 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { staggerContainer } from "~/styles/framerVariants";
 import AreaCard from "./_components/AreaCard";
+import { Button } from "./_components/ui/button";
+import { Input } from "./_components/ui/input";
 
 export type Area = {
   name: string;
@@ -15,7 +17,6 @@ export type Task = {
 };
 
 export default function Home() {
-  const [newArea, setNewArea] = useState("");
   const [areas, setAreas] = useState<Area[]>([
     {
       name: "Self improvement",
@@ -45,31 +46,9 @@ export default function Home() {
     { name: "Test10" },
   ]);
 
-  const handleAddArea = () => {
-    const area: Area = { name: newArea };
-    setAreas([...areas, area]);
-    setNewArea("");
-  };
-
   return (
     <main className="flex min-h-screen flex-col overflow-hidden bg-background p-4 text-white">
-      <div className="flex w-full justify-center">
-        <h2>Journey lite</h2>
-      </div>
-      <div className="my-2 flex justify-center">
-        <input
-          type="search"
-          value={newArea}
-          onChange={(e) => setNewArea(e.target.value)}
-          className="w-full rounded-r-none p-2 text-black md:w-1/2"
-        />
-        <button
-          type="button"
-          onClick={handleAddArea}
-          className="text-nowrap rounded-r bg-success px-4 py-2 text-xl">
-          Add Area
-        </button>
-      </div>
+      <AddAreaView setAreas={setAreas} />
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -82,3 +61,34 @@ export default function Home() {
     </main>
   );
 }
+
+const AddAreaView = ({
+  setAreas,
+}: {
+  setAreas: Dispatch<SetStateAction<Area[]>>;
+}) => {
+  const [newArea, setNewArea] = useState("");
+
+  const handleAddArea = () => {
+    const area: Area = { name: newArea };
+    setAreas((prev) => [...prev, area]);
+    setNewArea("");
+  };
+  return (
+    <>
+      <div className="flex w-full justify-center">
+        <h2>Journey lite</h2>
+      </div>
+      <div className="my-2 flex items-center gap-2">
+        <Input
+          type="search"
+          value={newArea}
+          onChange={(e) => setNewArea(e.target.value)}
+        />
+        <Button onClick={handleAddArea} size={"lg"} className="">
+          Add Area
+        </Button>
+      </div>
+    </>
+  );
+};
